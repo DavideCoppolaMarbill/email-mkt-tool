@@ -19,18 +19,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.show');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [ClientController::class, 'getAllClients'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/client/{client}/edit', [ClientController::class, 'edit'])->name('client.edit');
+    Route::post('/client/store', [ClientController::class,'store'])->name('client.store');
+    Route::patch('/client/{client}', [ClientController::class, 'update'])->name('client.update');
+    Route::delete('/client/{client}', [ClientController::class, 'destroy'])->name('client.destroy');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::post('/add-client', [ClientController::class,'store'])->name('client.store');
-});
+
 
 require __DIR__.'/auth.php';

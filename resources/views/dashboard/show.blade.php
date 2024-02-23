@@ -11,6 +11,11 @@
                 You are logged in as <strong>{{ Auth::user()->email }}</strong>
             </p>
         @endauth
+
+        <section>
+            @include('dashboard.partials.clients-list')
+        </section>
+
         <section>
             @include('dashboard.partials.add-clients-form')
         </section>
