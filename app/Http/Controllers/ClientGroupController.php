@@ -9,7 +9,7 @@ class ClientGroupController extends Controller
 {
     public function index(){
         $groups = ClientGroups::all();
-        return view('dashboard.clients.groups.index', ['groups' => $groups]);
+        return view('dashboard.clients.group.index', ['groups' => $groups]);
     }
 
     public function store(Request $request){
