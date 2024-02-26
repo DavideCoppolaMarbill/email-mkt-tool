@@ -34,6 +34,13 @@
             <option value="other">Other</option>
         </select>
 
+        <label for="group_id">Group</label>
+        <select name="group_id[]" id="group_id" class="form-control" multiple>
+            @foreach ($groups as $group)
+            <option value="{{ $group->id }}">{{ $group->group_name }}</option>
+            @endforeach
+        </select>
+
         @error('sex')
         <div class="text-danger">{{ $message }}</div>
         @enderror

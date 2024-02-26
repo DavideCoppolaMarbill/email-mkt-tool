@@ -23,6 +23,15 @@
         <label for="email">Email</label>
         <input type="text" name="email" id="email" class="form-control" value="{{ $client->email }}">
 
+        <label for="group_id">Group</label>
+        <select name="group_id[]" id="group_id" class="form-control" multiple>
+            @foreach ($groups as $group)
+            <option value="{{ $group->id }}" {{ $client->clientGroups->contains($group)?'selected' : '' }}>
+                {{ $group->group_name }}
+            </option>
+            @endforeach
+        </select>
+
         @error('email')
         <div class="text-danger">{{ $message }}</div>
         @enderror

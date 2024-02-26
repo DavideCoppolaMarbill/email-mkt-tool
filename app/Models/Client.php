@@ -14,4 +14,8 @@ class Client extends Model
     protected $fillable = [
        'user_id', 'first_name', 'last_name', 'email', 'sex', 'birthday',
     ];
+
+    public function clientGroups(){
+        return $this->belongsToMany(ClientGroups::class, 'client_groups', 'client_id', 'group_id');
+    }
 }

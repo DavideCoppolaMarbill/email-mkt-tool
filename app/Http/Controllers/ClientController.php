@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\ClientGroups;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -11,7 +12,10 @@ class ClientController extends Controller
     
     public function getAllClients() {
         $clients = Client::where('user_id', auth()->id())->get();
-        return view('dashboard.show', ['clients' => $clients]);
+        return view('dashboard.show', [
+            'clients' => $clients,
+            'groups' => ClientGroups::all(),
+        ]);
     }
 
     public function store(Request $request)
@@ -29,6 +33,14 @@ class ClientController extends Controller
 
         $client->save();
 
+        $groupIds = $request->input('group_id');
+
+        if ($groupIds) {
+            foreach ($groupIds as $groupId) {
+                $client->clientGroups()->attach($groupId);
+            }
+        }
+
         return redirect()->route('dashboard')->with('status', 'profile-updated');
     }
 
@@ -38,23 +50,28 @@ class ClientController extends Controller
     }
 
     public function edit(Client $client) {
-        return view('dashboard.clients.edit', ['client' => $client]);
+        return view('dashboard.clients.edit', 
+        [
+            'client' => $client,
+            'groups' => ClientGroups::all(),
+        ]);
     }
 
     public function update(Request $request, Client $client) {
         $request->validate($this->getClientValidationRules($request, $client));
-
-        $client->user_id = auth()->id();
-        $client->first_name = $request->input('first_name');
-        $client->last_name = $request->input('last_name');
-        $client->email = $request->input('email');
-        $client->sex = $request->input('sex');
-        $client->birthday = $request->input('birthday');
-
-        $client->save();
-
-        return redirect()->route('dashboard')->with('status', 'profile-updated');
+    
+        $clientData = $request->only(['first_name', 'last_name', 'email', 'sex', 'birthday']);
+        $clientData['user_id'] = auth()->id();
+    
+        $client->update($clientData);
+    
+        $groupIds = $request->input('group_id', []);
+    
+        $client->clientGroups()->sync($groupIds);
+    
+        return redirect()->route('dashboard')->with('status', 'Client updated successfully');
     }
+    
 
     protected function getClientValidationRules(Request $request, $client = null)
     {
@@ -70,8 +87,9 @@ class ClientController extends Controller
                     return $query->where('user_id', auth()->id());
                 })->ignore($client ? $client->id : null),
             ],
+
             'sex' => ['required', 'string', 'max:255'],
-            'birthday' => ['required', 'date'],
+            'birthday' => ['nullable', 'date'],
         ];
 
         return $rules;

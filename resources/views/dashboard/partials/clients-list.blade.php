@@ -9,6 +9,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>Groups</th>
                 <th>Sex</th>
                 <th>Birthday</th>
                 <th>Actions</th>
@@ -20,6 +21,13 @@
                     <td>{{ $client->first_name }}</td>
                     <td>{{ $client->last_name }}</td>
                     <td>{{ $client->email }}</td>
+                    <td>
+                        @foreach($client->clientGroups as $group)
+                        <span class="bg-primary text-white rounded-pill px-2 py-1">
+                            {{ $group->group_name }}
+                        </span>
+                        @endforeach
+                    </td>
                     <td>{{ $client->sex }}</td>
                     <td>{{ $client->birthday }}</td>
                     <td class="d-flex gap-2">

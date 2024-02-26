@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ClientGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/client/{client}', [ClientController::class, 'destroy'])->name('client.destroy');
 
     Route::post('/send-email', [EmailController::class, 'send'])->name('send.email');
+
+    Route::get('/client/groups', [ClientGroupController::class, 'index'])->name('groups.index');
+    Route::post('/client/groups', [ClientGroupController::class,'store'])->name('groups.store');
+    Route::delete('/client/groups/{group}', [ClientGroupController::class, 'destroy'])->name('groups.destroy');
 });
 
 
