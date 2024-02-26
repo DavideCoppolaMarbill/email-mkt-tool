@@ -22,7 +22,7 @@
                     <td>{{ $client->email }}</td>
                     <td>{{ $client->sex }}</td>
                     <td>{{ $client->birthday }}</td>
-                    <td>
+                    <td class="d-flex gap-2">
                         <a href="{{ route('client.edit', $client->id) }}" class="btn btn-primary">
                             <i class="bi bi-pencil"></i>
                         </a>
@@ -33,6 +33,9 @@
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
+                        <button class="btn btn-success" onclick="addEmail('{{ $client->email }}')">
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
                     </td>
                 </tr>
             @endforeach
@@ -40,3 +43,10 @@
     </table>
 </div>
 </div>
+
+<script>
+        function addEmail(email) {
+            let emailList = document.getElementById('email-to')
+            emailList.value = emailList.value + ' ' + email
+        }
+</script>
