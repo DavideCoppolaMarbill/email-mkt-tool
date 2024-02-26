@@ -19,5 +19,10 @@
         <section>
             @include('dashboard.partials.add-clients-form')
         </section>
+
+        <section>
+            @include('dashboard.partials.send-email-form')
+        </section>
+
     </div>
 @endsection

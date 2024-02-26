@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/client/store', [ClientController::class,'store'])->name('client.store');
     Route::patch('/client/{client}', [ClientController::class, 'update'])->name('client.update');
     Route::delete('/client/{client}', [ClientController::class, 'destroy'])->name('client.destroy');
+
+    Route::post('/send-email', [EmailController::class, 'send'])->name('send.email');
 });
 
 
