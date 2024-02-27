@@ -7,21 +7,27 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav align-items-center">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('dashboard')}}">Dashboard</a>
+            <a class="nav-link" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('groups.index')}}">Groups</a>
           </li>
+          @if(Auth::check())
           <li class="nav-item">
-            @if(Auth::check())
+            <a class="nav-link" href="{{route('profile.edit')}}">Profile</a>
+          </li>
+          <li class="nav-item">
               <form action="{{route('logout')}}" method="POST">
                 @csrf
                 <button class="btn btn-sm btn-secondary" type="submit">Logout</button>
               </form>
+          </li>
             @else
             <a class="nav-link" href="{{route('login')}}">Login</a>
             @endif
-          </li>
         </ul>
       </div>
     </div>

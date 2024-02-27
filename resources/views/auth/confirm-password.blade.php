@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mb-4">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+        This is a secure area of the application. Please confirm your password before continuing.
     </div>
 
     <form method="POST" action="{{ route('password.confirm') }}">
@@ -10,7 +10,7 @@
 
         <!-- Password -->
         <div>
-            <label for="password" class="form-label">{{ __('Password') }}</label>
+            <label for="password" class="form-label">Password</label>
             <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" />
             @error('password')
                 <div class="text-danger mt-2">{{ $message }}</div>
@@ -19,7 +19,7 @@
 
         <div class="mt-4">
             <button type="submit" class="btn btn-primary">
-                {{ __('Confirm') }}
+                Confirm
             </button>
         </div>
     </form>

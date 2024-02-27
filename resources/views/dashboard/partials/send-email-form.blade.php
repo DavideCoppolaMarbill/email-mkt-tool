@@ -1,4 +1,5 @@
-<div>
+<div class="col">
+    <div class="p-4 bg-light rounded-4">
     <h2>
         Send emails
     </h2>
@@ -34,12 +35,5 @@
     
         <input type="submit" value="Send" class="btn btn-primary mt-3 d-block">
     </form>
-    
 </div>
-
-<script>
-    document.getElementById('schedule_email').addEventListener('change', function() {
-        var meetingTimeInput = document.getElementById('schedule_datetime');
-        meetingTimeInput.style.display = this.checked ? 'block' : 'none';
-    });
-</script>
+</div>

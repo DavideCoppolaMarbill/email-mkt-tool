@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="py-3">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
     </div>
 
     <!-- Session Status -->
@@ -25,7 +25,7 @@
         </div>
 
             <button type="submit" class="btn btn-primary">
-                {{ __('Email Password Reset Link') }}
+                Email Password Reset Link
             </button>
     </form>
 @endsection

@@ -6,7 +6,7 @@
 
     @if (session('status') == 'verification-link-sent')
         <div class="mb-4 text-success">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+            A new verification link has been sent to the email address you provided during registration.
         </div>
     @endif
 
@@ -15,7 +15,7 @@
             @csrf
 
             <button type="submit" class="btn btn-primary">
-                {{ __('Resend Verification Email') }}
+                Resend Verification Email
             </button>
         </form>
 
@@ -23,7 +23,7 @@
             @csrf
 
             <button type="submit" class="btn btn-secondary mt-3">
-                {{ __('Log Out') }}
+                Log Out
             </button>
         </form>
     </div>

@@ -1,9 +1,9 @@
-<h1>
+<h1 class="text-center">
     Client list
 </h1>
 
-<div class="table-responsive">
-    <table class="table">
+<div class="table-responsive" id="client-table">
+    <table class="table table-striped table-bordered align-middle">
         <thead>
             <tr>
                 <th>First Name</th>
@@ -30,20 +30,22 @@
                     </td>
                     <td>{{ $client->sex }}</td>
                     <td>{{ $client->birthday }}</td>
-                    <td class="d-flex gap-2">
-                        <a href="{{ route('client.edit', $client->id) }}" class="btn btn-primary">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <form action="{{ route('client.destroy', $client->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash"></i>
+                    <td>
+                        <div class="d-flex gap-2 justify-content-center">
+                            <a href="{{ route('client.edit', $client->id) }}" class="btn btn-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <form action="{{ route('client.destroy', $client->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                            <button class="btn btn-success" onclick="addEmail('{{ $client->email }}')">
+                                <i class="bi bi-plus-circle"></i>
                             </button>
-                        </form>
-                        <button class="btn btn-success" onclick="addEmail('{{ $client->email }}')">
-                            <i class="bi bi-plus-circle"></i>
-                        </button>
+                        </div>
                     </td>
                 </tr>
             @endforeach

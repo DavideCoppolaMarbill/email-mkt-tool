@@ -9,7 +9,7 @@
 
         <!-- Email Address -->
         <div>
-            <label for="email" class="form-label">{{ __('Email') }}</label>
+            <label for="email" class="form-label">Email</label>
             <input id="email" class="form-control" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
             @error('email')
                 <div class="text-danger mt-2">{{ $message }}</div>
@@ -18,7 +18,7 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <label for="password" class="form-label">{{ __('Password') }}</label>
+            <label for="password" class="form-label">Password</label>
             <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password" />
             @error('password')
                 <div class="text-danger mt-2">{{ $message }}</div>
@@ -27,7 +27,7 @@
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <label for="password_confirmation" class="form-label">{{ __('Confirm Password') }}</label>
+            <label for="password_confirmation" class="form-label">Confirm Password</label>
             <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" />
             @error('password_confirmation')
                 <div class="text-danger mt-2">{{ $message }}</div>
@@ -36,7 +36,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <button type="submit" class="btn btn-primary">
-                {{ __('Reset Password') }}
+                Reset Password
             </button>
         </div>
     </form>
