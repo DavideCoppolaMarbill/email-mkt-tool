@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('sex');
-            $table->date('birthday')->nullable();
+            $table->date('birthday');
         });
     }
 

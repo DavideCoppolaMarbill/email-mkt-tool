@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id()->unique();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('group_id');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('client_groups');
     }
 };
