@@ -6,8 +6,8 @@
     <title>Email Template</title>
 </head>
 <body>
-    <p>
-        {{$emailMessage}}
-    </p>
+    <div>
+        {!! $emailMessage !!}
+    </div>
 </body>
 </html>
