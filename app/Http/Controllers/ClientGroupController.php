@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ClientGroups;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ClientGroupController extends Controller
 {
@@ -14,7 +15,7 @@ class ClientGroupController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'group_name' => ['required','string','max:255', 'unique:groups'],
+            'group_name' => ['required','string','max:255', Rule::unique('groups', 'group_name')->where('user_id', auth()->id())],
         ]);
 
         $group = new ClientGroups([
