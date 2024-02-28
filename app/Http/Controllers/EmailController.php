@@ -22,6 +22,7 @@ class EmailController extends Controller
             'group_id' => 'required_without_all:email-to|array',
             'subject' => 'required',
             'message' => 'required',
+            'schedule_datetime' => 'date_format:Y-m-d\TH:i',
         ]);
 
         if ($validator->fails()) {
@@ -60,14 +61,15 @@ class EmailController extends Controller
     private function replacePlaceholders($message, $subject, $client)
     {
         $placeholders = ['{first_name}', '{last_name}', '{sex}', '{birthday}'];
-        $values = [
-            $client->first_name,
-            $client->last_name,
-            $client->sex,
-            $client->birthday
-        ];
-    
+           
         if ($client) {
+            $values = [
+                $client->first_name,
+                $client->last_name,
+                $client->sex,
+                $client->birthday
+            ];
+
             $replacedText = str_replace($placeholders, $values, $message);
             $replacedText = nl2br($replacedText);
     
