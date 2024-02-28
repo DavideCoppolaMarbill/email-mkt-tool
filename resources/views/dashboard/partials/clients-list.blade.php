@@ -22,11 +22,13 @@
                     <td>{{ $client->last_name }}</td>
                     <td>{{ $client->email }}</td>
                     <td>
-                        @foreach($client->clientGroups as $group)
-                        <span class="bg-primary text-white rounded-pill px-2 py-1">
-                            {{ $group->group_name }}
-                        </span>
-                        @endforeach
+                        <div class="overflow-x-auto d-flex gap-2" style="max-width: 250px;">
+                            @foreach($client->clientGroups as $group)
+                            <div class="bg-primary text-white rounded-pill px-2 py-1" style="min-width: fit-content">
+                                {{ $group->group_name }}
+                            </div>
+                            @endforeach
+                        </div>
                     </td>
                     <td>{{ $client->sex }}</td>
                     <td>{{ $client->birthday }}</td>
@@ -52,6 +54,10 @@
         </tbody>
     </table>
 </div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    {{ $clients->links() }}
 </div>
 
 @push('scripts')

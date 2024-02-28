@@ -12,13 +12,16 @@ class ClientController extends Controller
 {
     
     public function getAllClients() {
-        $clients = Client::where('user_id', auth()->id())->get();
+        $clients = Client::where('user_id', auth()->id())
+        ->orderBy('updated_at', 'desc')
+        ->paginate(10);
+
         return view('dashboard.show', [
             'clients' => $clients,
             'groups' => ClientGroups::all(),
         ]);
     }
-
+    
     public function store(Request $request)
     {
         $request->validate($this->getClientValidationRules($request));
