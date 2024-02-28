@@ -4,8 +4,9 @@
         Send emails
     </h2>
 
-    <form action="{{ route('send.email') }}" method="POST">
+    <form action="{{ route('send.email') }}" method="POST" name="your_form_name">
         @csrf
+        <input type="hidden" name="form_name" value="send_email_form">
         <input type="text" placeholder="Email" class="form-control" name="email-to" value="{{ old('email-to') }}" id="email-to">
         @error('email-to')
         <p class="text-danger">{{ $message }}</p>
@@ -17,7 +18,12 @@
             <option value="{{ $group->id }}">{{ $group->group_name }}</option>
             @endforeach
         </select>
-    
+        @error('group_id')
+            @if(old('form_name') == 'send_email_form')
+                <p class="text-danger">{{ $message }}</p>
+            @endif
+        @enderror
+
         <input type="text" placeholder="Subject" class="form-control mt-3" name="subject" value="{{ old('subject') }}">
         @error('subject')
         <p class="text-danger">{{ $message }}</p>

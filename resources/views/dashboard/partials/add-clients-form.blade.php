@@ -7,7 +7,7 @@
     
     <form action="{{ route('client.store') }}"method="POST">
         @csrf
-        
+        <input type="hidden" name="form_name" value="add_client_form">
         <div class="form-group">
             <label for="first_name">Name</label>
             <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}">
@@ -36,16 +36,20 @@
                 <option value="female">Female</option>
                 <option value="other">Other</option>
             </select>
+            @error('sex')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
             
             <label for="group_id">Group</label>
             <select name="group_id[]" id="group_id" class="form-control" multiple>
                 @foreach ($groups as $group)
                 <option value="{{ $group->id }}">{{ $group->group_name }}</option>
                 @endforeach
-            </select>
-            
-            @error('sex')
-            <div class="text-danger">{{ $message }}</div>
+x            </select>
+            @error('group_id')
+                @if(old('form_name') == 'add_client_form')
+                    <p class="text-danger">{{ $message }}</p>
+                @endif
             @enderror
             
             <label for="birthday">Birthday</label>

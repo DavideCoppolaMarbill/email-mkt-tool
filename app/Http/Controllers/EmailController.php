@@ -19,7 +19,7 @@ class EmailController extends Controller
         // Validate the request
         $validator = Validator::make($request->all(), [
             'email-to' => 'required_without_all:group_id|string|nullable',
-            'group_id' => 'required_without_all:email-to|array',
+            'group_id' => ['required_without_all:email-to|array', 'valid_group_ids'],
             'subject' => 'required',
             'message' => 'required',
             'schedule_datetime' => 'date_format:Y-m-d\TH:i',

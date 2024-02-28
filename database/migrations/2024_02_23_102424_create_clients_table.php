@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('clients', function (Blueprint $table) {
+            // $table->dropForeign('user_id');
+
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
@@ -19,16 +21,23 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->string('sex');
-            $table->date('birthday');
+            $table->string('sex')->nullable();
+            $table->date('birthday')->nullable();
         });
     }
 
     /**
      * Reverse the migrations.
      */
+/**
+ * Reverse the migrations.
+ */
     public function down(): void
     {
+        // Schema::table('clients', function (Blueprint $table) {
+        //     $table->dropForeign('user_id');
+        // });
+
         Schema::dropIfExists('clients');
     }
 };

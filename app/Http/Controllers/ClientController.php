@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Client;
 use App\Models\ClientGroups;
 use Illuminate\Http\Request;
@@ -87,9 +88,14 @@ class ClientController extends Controller
                     return $query->where('user_id', auth()->id());
                 })->ignore($client ? $client->id : null),
             ],
-
-            'sex' => ['required', 'string', 'max:255'],
-            'birthday' => ['nullable', 'date'],
+            'sex' => ['string', 'in:male,female,other'],
+            'group_id' => ['array', 'valid_group_ids'],
+            'birthday' => [
+                'nullable',
+                'date',
+                'before_or_equal:' . Carbon::now()->format('Y-m-d'),
+                'after_or_equal:' . Carbon::now()->subYears(100)->format('Y-m-d')
+            ],
         ];
 
         return $rules;
