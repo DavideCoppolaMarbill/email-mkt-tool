@@ -54,9 +54,11 @@
 </div>
 </div>
 
+@push('scripts')
 <script>
         function addEmail(email) {
             let emailList = document.getElementById('email-to')
             emailList.value = emailList.value + ' ' + email
         }
 </script>
+@endpush

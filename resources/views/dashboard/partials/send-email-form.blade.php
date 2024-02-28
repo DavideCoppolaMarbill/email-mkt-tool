@@ -37,3 +37,12 @@
     </form>
 </div>
 </div>
+
+@push('scripts')
+<script>
+    document.getElementById('schedule_email').addEventListener('change', function() {
+        var meetingTimeInput = document.getElementById('schedule_datetime');
+        meetingTimeInput.style.display = this.checked ? 'block' : 'none';
+    });
+</script>
+@endpush
