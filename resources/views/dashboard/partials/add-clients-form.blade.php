@@ -10,21 +10,21 @@
         <input type="hidden" name="form_name" value="add_client_form">
         <div class="form-group">
             <label for="first_name">Name</label>
-            <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}">
+            <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}" required>
             
             @error('first_name')
             <div class="text-danger">{{ $message }}</div>
             @enderror
             
             <label for="last_name">Last Name</label>
-            <input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name') }}">
+            <input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name') }}" required>
             
             @error('last_name')
             <div class="text-danger">{{ $message }}</div>
             @enderror
             
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}">
+            <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
             
             @error('email')
             <div class="text-danger">{{ $message }}</div>
