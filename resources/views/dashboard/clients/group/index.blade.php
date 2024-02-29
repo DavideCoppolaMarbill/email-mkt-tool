@@ -10,11 +10,18 @@
         <div class="card mt-3">
             <div class="card-body">
                 <h5 class="card-title">{{ $group->group_name }}</h5>
-                <form action="{{ route('groups.destroy', $group->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
+                <div class="d-flex gap-2">
+                    <form action="{{ route('groups.destroy', $group->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i  class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                    <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-primary">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                </div>
             </div>
         </div>
         @endforeach

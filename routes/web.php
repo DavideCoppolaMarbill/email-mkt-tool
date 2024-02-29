@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/groups', [ClientGroupController::class, 'index'])->name('groups.index');
     Route::post('/client/groups', [ClientGroupController::class,'store'])->name('groups.store');
     Route::delete('/client/groups/{group}', [ClientGroupController::class, 'destroy'])->name('groups.destroy');
+    Route::get('/client/groups/{group}/edit', [ClientGroupController::class, 'edit'])->name('groups.edit');
+    Route::patch('/client/groups/{group}', [ClientGroupController::class, 'update'])->name('groups.update');
+
 });
 
 

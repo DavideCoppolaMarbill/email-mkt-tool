@@ -32,4 +32,25 @@ class ClientGroupController extends Controller
         $group->delete();
         return redirect()->route('groups.index')->with('status', 'Group deleted successfully');
     }
+
+    public function edit(ClientGroups $group) {
+        return view('dashboard.clients.group.edit', 
+        [
+            'group' => $group,
+        ]);
+    }
+
+    public function update(Request $request, ClientGroups $group) {
+        $request->validate([
+            'group_name' => ['required','string','max:255', Rule::unique('groups', 'group_name')->where('user_id', auth()->id())],
+        ]);
+
+        $group->update([
+            'group_name' => $request->input('group_name'),
+            'user_id' => auth()->id(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('groups.index')->with('status', 'Group updated successfully');
+    }
 }
