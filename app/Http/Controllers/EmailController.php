@@ -18,12 +18,12 @@ class EmailController extends Controller
     {
         // Validate the request
         $validator = Validator::make($request->all(), [
-            'email-to' => 'required_without_all:group_id|string|nullable',
-            'group_id' => ['required_without_all:email-to|array', 'valid_group_ids'],
+            'email-to' => 'string|nullable|required_without_all:group_id',
+            'group_id' => 'valid_group_ids|required_without_all:email-to',
             'subject' => 'required',
             'message' => 'required',
             'schedule_datetime' => 'date_format:Y-m-d\TH:i',
-        ]);
+        ]);        
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
