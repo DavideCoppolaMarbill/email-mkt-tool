@@ -28,6 +28,19 @@
                 @endif
             @enderror
 
+            <div>
+                <p class="my-2">
+                    Customize email with dynamic variables:
+                </p>
+                <div class="d-flex flex-wrap gap-2 text-white" style="font-size: 0.8rem">
+                    <p class="bg-primary rounded-pill px-2 py-1">{first_name}</p>
+                    <p class="bg-primary rounded-pill px-2 py-1">{last_name}</p>
+                    <p class="bg-primary rounded-pill px-2 py-1">{birthday}</p>
+                    <p class="bg-primary rounded-pill px-2 py-1">{sex}</p>
+                </div>
+            </div>
+            
+
             <input type="text" placeholder="Subject" class="form-control mt-3" name="subject" value="{{ old('subject') }}" required>
             @error('subject')
             <p class="text-danger">{{ $message }}</p>
