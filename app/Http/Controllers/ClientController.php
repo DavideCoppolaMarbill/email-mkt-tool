@@ -45,12 +45,12 @@ class ClientController extends Controller
             }
         }
 
-        return redirect()->route('dashboard')->with('status', 'profile-updated');
+        return redirect()->route('dashboard')->with('status', 'Profile updated successfully');
     }
 
     public function destroy(Client $client){
         $client->delete();
-        return redirect()->route('dashboard')->with('status', 'profile-updated');
+        return redirect()->route('dashboard')->with('status', 'Client deleted successfully');
     }
 
     public function edit(Client $client) {
