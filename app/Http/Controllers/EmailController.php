@@ -23,6 +23,7 @@ class EmailController extends Controller
             'subject' => 'required',
             'message' => 'required',
             'schedule_datetime' => 'date_format:Y-m-d\TH:i',
+            'attachment' => 'nullable|file|mimes:jpg,jpeg,png|max:1024',
         ]);        
 
         if ($validator->fails()) {
@@ -35,17 +36,23 @@ class EmailController extends Controller
         $scheduleEmail = $request->has('schedule_email');
         $scheduledDateTime = $request->input('schedule_datetime');
         $isScheduled = $scheduleEmail && $scheduledDateTime;
+        $attachment = null;
 
+        if ($request->hasFile('attachment')) {
+            $attachment = $request->file('attachment');
+            $tempPath = tempnam(sys_get_temp_dir(), 'email_attachment');
+            $attachment->move(dirname($tempPath), basename($tempPath));
+            $attachment = $tempPath;
+        }
 
-        $this->sendEmail($emails, $subject, $message, $scheduleEmail, $scheduledDateTime);
+        $this->sendEmail($emails, $subject, $message, $scheduleEmail, $scheduledDateTime, $attachment);
 
         return redirect()->back()->with('status', $isScheduled ? 'Email scheduled successfully'  : 'Email sent successfully');
     }
 
-    private function sendEmail($emails, $subject, $message, $scheduleEmail, $scheduledDateTime) {
+    private function sendEmail($emails, $subject, $message, $scheduleEmail, $scheduledDateTime, $attachment = null) {
         $scheduledDateTime = Carbon::parse($scheduledDateTime);
         $sendAt = $scheduleEmail && $scheduledDateTime ? $scheduledDateTime : now();
-
         foreach ($emails as $email) {
             $client = Client::where('email', $email)->where('user_id', auth()->id())->first();
             
@@ -54,7 +61,7 @@ class EmailController extends Controller
             $customMessage = $replacementResult['message'];
             $customSubject = $replacementResult['subject'];
     
-            Mail::to($email)->later($sendAt, new SendEmail($customSubject, $customMessage));
+            Mail::to($email)->later($sendAt, new SendEmail($customSubject, $customMessage, $attachment));
         }
     }
 
@@ -108,7 +115,5 @@ class EmailController extends Controller
 
         return $emails;
     }
-    
-    
     
 }

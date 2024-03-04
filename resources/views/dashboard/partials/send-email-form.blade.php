@@ -4,7 +4,7 @@
             Send emails
         </h2>
 
-        <form action="{{ route('send.email') }}" method="POST" name="your_form_name" id="sendEmailForm">
+        <form action="{{ route('send.email') }}" method="POST" name="your_form_name" id="sendEmailForm" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="form_name" value="send_email_form">
 
@@ -51,7 +51,12 @@
                 <p class="text-danger">{{ $message }}</p>
             @enderror
 
-            <input type="checkbox" name="schedule_email" id="schedule_email">
+            <input type="file" name="attachment" id="attachment" class="form-control mt-3" accept="image/png, image/jpeg, image/jpg">
+            @error('attachment')
+            <p class="text-danger">{{ $message }}</p>
+            @enderror
+
+            <input type="checkbox" name="schedule_email" id="schedule_email" class="mt-3">
             <label for="schedule_email">Schedule the email</label>
             <input type="datetime-local" id="schedule_datetime" name="schedule_datetime" class="form-control" value="{{ now()->format('Y-m-d\TH:i') }}" style="display: none" min="{{ now()->format('Y-m-d\TH:i') }}">
             @error('schedule_datetime')
@@ -64,6 +69,24 @@
 </div>
 
 @push('scripts')
+
+<script>
+    document.getElementById('submitButton').addEventListener('click', function(event) {
+        var fileInput = document.getElementById('attachment');
+        var fileSize = fileInput.files[0].size; // in bytes
+        fileSize = fileSize / 1024 / 1024; // in MB
+        var maxSize = 1;
+
+        if (fileSize > maxSize) {
+            fileInput.setCustomValidity('File size must be a jpeg or png less than 1MB');
+            fileInput.reportValidity();
+            event.preventDefault(); // prevent form submission
+        } else {
+            fileInput.setCustomValidity('');
+        }
+    });
+</script>
+
 <script>
     var form = document.getElementById('sendEmailForm');
     var emailToInput = form.querySelector('#email-to');
